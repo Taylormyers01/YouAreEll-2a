@@ -1,6 +1,8 @@
 package models;
 
-/* 
+import java.util.Objects;
+
+/*
  * POJO for an Message object
  *
  *   {
@@ -25,6 +27,13 @@ public class Message { //implements Comparable {
         this.message = message;
         this.fromid = fromId;
         this.toid = toId;
+    }
+    public Message (String message, String fromId, String toId, String timestamp, String sequence) {
+        this.message = message;
+        this.fromid = fromId;
+        this.toid = toId;
+        this.sequence = sequence;
+        this.timestamp = timestamp;
     }
 
     public Message (String message, String fromId) {
@@ -72,5 +81,18 @@ public class Message { //implements Comparable {
 
     public String getSequence() {
         return sequence;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return Objects.equals(message, message1.message) && Objects.equals(toid, message1.toid) && Objects.equals(fromid, message1.fromid) && Objects.equals(timestamp, message1.timestamp) && Objects.equals(sequence, message1.sequence);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, toid, fromid, timestamp, sequence);
     }
 }
